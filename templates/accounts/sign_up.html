@@ -1,0 +1,144 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- Required meta tags -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Codescandy" />
+
+    <!-- Favicon icon -->
+    <link rel="shortcut icon" type="image/x-icon" href="https://geeksui.codescandy.com/geeks/assets/images/favicon/favicon.ico" />
+
+    <!-- darkmode js -->
+    <script src="{% static 'darkMode.js' %}"></script>
+
+    <!-- Libs CSS -->
+    <link href="{% static 'feather.css' %}" rel="stylesheet" />
+    <link href="{% static 'bootstrap-icons.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'simplebar.min.css' %}" rel="stylesheet" />
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="{% static 'theme.min.css' %}" />
+
+    <link rel="canonical" href="https://geeksui.codescandy.com/geeks/pages/sign-up.html" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    <title>Sign up | Geeks - Bootstrap 5 Template</title>
+  </head>
+
+  <body>
+    <!-- Page content -->
+    <main>
+      <section class="container d-flex flex-column vh-100">
+        <div class="row align-items-center justify-content-center g-0 h-lg-100 py-8">
+          <div class="col-lg-5 col-md-8 py-8 py-xl-0">
+            <!-- Card -->
+            <div class="card shadow">
+              <!-- Card body -->
+              <div class="card-body p-6 d-flex flex-column gap-4">
+                <div>
+                  <a href="/"><img src="{% static 'logo-icon.svg' %}" class="mb-4" alt="logo" /></a>
+                  <div class="d-flex flex-column gap-1">
+                    <h1 class="mb-0 fw-bold">Sign up</h1>
+                    <span>
+                      Already have an account?
+                      <a href="{% url 'login' %}" class="ms-1">Sign in</a>
+                    </span>
+                  </div>
+                </div>
+                <!-- Form -->
+                <form method="post" class="needs-validation" novalidate="">
+                  {% csrf_token %}
+                  <!-- Username -->
+                  <div class="mb-3">
+                      <label for="signUpName" class="form-label">User Name</label>
+                      {{ form.username }}
+                      <div class="invalid-feedback">Please enter a valid username.</div>
+                  </div>
+                  <!-- Email -->
+                  <div class="mb-3">
+                      <label for="signUpEmail" class="form-label">Email</label>
+                      {{ form.email }}
+                      <div class="invalid-feedback">Please enter a valid Email.</div>
+                  </div>
+                  <!-- Password -->
+                  <div class="mb-3">
+                      <label for="signUpPassword" class="form-label">Password</label>
+                      {{ form.password1 }}
+                      <div class="invalid-feedback">Please enter a valid password.</div>
+                  </div>
+                  <!-- Confirm Password -->
+                  <div class="mb-3">
+                      <label for="signUpPasswordConfirm" class="form-label">Confirm Password</label>
+                      {{ form.password2 }}
+                      <div class="invalid-feedback">Please confirm your password.</div>
+                  </div>
+                  <!-- Checkbox -->
+                  <div class="mb-3">
+                      <div class="form-check">
+                          <input type="checkbox" class="form-check-input" id="agreeCheck" required="">
+                          <label class="form-check-label" for="agreeCheck">
+                              <span>
+                                  I agree to the
+                                  <a href="https://geeksui.codescandy.com/geeks/pages/terms-condition-page.html">Terms of Service</a>
+                                  and
+                                  <a href="https://geeksui.codescandy.com/geeks/pages/terms-condition-page.html">Privacy Policy.</a>
+                              </span>
+                          </label>
+                          <div class="invalid-feedback">You must agree before submitting.</div>
+                      </div>
+                  </div>
+                  <div>
+                      <div class="d-grid">
+                          <button type="submit" class="btn btn-primary">Create Free Account</button>
+                      </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div class="position-absolute bottom-0 m-4">
+        <div class="dropdown">
+          <button class="btn btn-light btn-icon rounded-circle d-flex align-items-center" type="button" aria-expanded="false" data-bs-toggle="dropdown" aria-label="Toggle theme (auto)">
+            <i class="bi theme-icon-active"><i class="bi theme-icon bi-moon-stars-fill"></i></i>
+            <span class="visually-hidden bs-theme-text">Toggle theme</span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="bs-theme-text">
+            <li>
+              <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
+                <i class="bi theme-icon bi-sun-fill"></i>
+                <span class="ms-2">Light</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="dark" aria-pressed="true">
+                <i class="bi theme-icon bi-moon-stars-fill"></i>
+                <span class="ms-2">Dark</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="auto" aria-pressed="false">
+                <i class="bi theme-icon bi-circle-half"></i>
+                <span class="ms-2">Auto</span>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </main>
+    <!-- Scripts -->
+    <!-- Libs JS -->
+    <script src="{% static 'popper.min.js' %}"></script>
+    <script src="{% static 'bootstrap.min.js' %}"></script>
+    <script src="{% static 'simplebar.min.js' %}"></script>
+
+    <!-- Theme JS -->
+    <script src="{% static 'theme.min.js' %}"></script>
+
+    <script src="{% static 'validation.js' %}"></script>
+  </body>
+</html>

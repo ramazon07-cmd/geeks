@@ -1,0 +1,273 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<main>
+  <section class="py-4 py-lg-6 bg-primary">
+    <div class="container">
+      <div class="row">
+        <div class="offset-lg-1 col-lg-10 col-md-12 col-12">
+          <div class="d-lg-flex align-items-center justify-content-between">
+            <!-- Content -->
+            <div class="mb-4 mb-lg-0">
+              <h1 class="text-white mb-1">Add New Course</h1>
+              <p class="mb-0 text-white lead">Just fill the form and create your courses.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Page Content -->
+  <section class="pb-8">
+    <div class="container">
+      <div id="courseForm" class="bs-stepper">
+        <div class="row">
+          <div class="offset-lg-1 col-lg-10 col-md-12 col-12">
+            <!-- Stepper content -->
+            <div class="bs-stepper-content mt-5">
+              <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <!-- Course Title -->
+                <div class="mb-3">
+                  <label for="addCourseTitle" class="form-label">Course Title</label>
+                  {{ form.name }}
+                  <small>Write a 60 character course title.</small>
+                </div>
+
+                <!-- Category -->
+                <div class="mb-3">
+                  <label class="form-label" for="addCourseCategory">Courses category</label>
+                  {{ form.category }}
+                  <small>Help people find your courses by choosing categories that represent your course.</small>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label" for="addCourseTeacher">Teacher</label>
+                  {{ form.teacher }}
+                </div>
+
+                <!-- Course Level -->
+                <div class="mb-3">
+                  <label class="form-label" for="addCourseLevel">Courses level</label>
+                  {{ form.status }}
+                </div>
+
+                <!-- Course Description -->
+                <div class="mb-3">
+                  <label class="form-label">Course Description</label>
+                  {{ form.description }}
+                  <small>A brief summary of your courses.</small>
+                </div>
+
+                <!-- Trailer -->
+                <div class="mb-3">
+                  <label class="form-label">Upload Course Trailer</label>
+                  {{ form.trailer }}
+                </div>
+
+                <!-- Image -->
+                <div class="mb-3">
+                  <label class="form-label">Course Image</label>
+                  {{ form.image }}
+                </div>
+
+                <!-- Total Videos and Duration -->
+                <div class="mb-3">
+                  <label class="form-label">Total Videos</label>
+                  {{ form.total_videos }}
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Total Duration</label>
+                  {{ form.total_duration }}
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer bg-dark-stable py-8">
+  <div class="container">
+    <div class="row gy-6 gy-xl-0 pb-8">
+      <div class="col-xl-3 col-lg-12 col-md-6 col-12">
+        <div class="d-flex flex-column gap-4">
+          <div>
+            <img src="{% static 'geeks-logo.svg' %}" alt="geeks logo" />
+          </div>
+          <p class="mb-0">Nascetur nibh feugiat vulputate urna mauris tincidunt porttitor ultricies. Et dis augue praesent congue.</p>
+        </div>
+      </div>
+      <div class="col-xl-2 col-md-3 col-6">
+        <div class="d-flex flex-column gap-3">
+          <span class="text-white-stable">Company</span>
+          <ul class="list-unstyled mb-0 d-flex flex-column nav nav-footer nav-x-0">
+            <li>
+              <a href="https://geeksui.codescandy.com/geeks/pages/add-course.html#!" class="nav-link">About us</a>
+            </li>
+            <li>
+              <a href="https://geeksui.codescandy.com/geeks/pages/add-course.html#!" class="nav-link">Contact us</a>
+            </li>
+            <li>
+              <a href="https://geeksui.codescandy.com/geeks/pages/add-course.html#!" class="nav-link">News and Blogs</a>
+            </li>
+            <li>
+              <a href="https://geeksui.codescandy.com/geeks/pages/add-course.html#!" class="nav-link">Career</a>
+            </li>
+            <li>
+              <a href="https://geeksui.codescandy.com/geeks/pages/add-course.html#!" class="nav-link">Investors</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-xl-2 col-md-3 col-6">
+        <div class="d-flex flex-column gap-3">
+          <span class="text-white-stable">Community</span>
+          <ul class="list-unstyled mb-0 d-flex flex-column nav nav-footer nav-x-0">
+            <li>
+              <a href="https://geeksui.codescandy.com/geeks/pages/add-course.html#!" class="nav-link">Help and Support</a>
+            </li>
+            <li>
+              <a href="https://geeksui.codescandy.com/geeks/pages/add-course.html#!" class="nav-link">Affiliate</a>
+            </li>
+            <li>
+              <a href="https://geeksui.codescandy.com/geeks/pages/add-course.html#!" class="nav-link">Blog</a>
+            </li>
+            <li>
+              <a href="https://geeksui.codescandy.com/geeks/pages/add-course.html#!" class="nav-link">Geeks Business</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-xl-2 col-md-3 col-12">
+        <div class="d-flex flex-column gap-3">
+          <span class="text-white-stable">Teaching</span>
+          <ul class="list-unstyled mb-0 d-flex flex-column nav nav-footer nav-x-0">
+            <li>
+              <a href="https://geeksui.codescandy.com/geeks/pages/add-course.html#!" class="nav-link">Become a teacher</a>
+            </li>
+            <li>
+              <a href="https://geeksui.codescandy.com/geeks/pages/add-course.html#!" class="nav-link">How to guide</a>
+            </li>
+            <li>
+              <a href="https://geeksui.codescandy.com/geeks/pages/add-course.html#!" class="nav-link">Documentation</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-xl-3 col-lg-3 col-md-6 col-12">
+        <div class="d-flex flex-column gap-5">
+          <div class="d-flex flex-column gap-3">
+            <span class="text-white-stable">Contact</span>
+            <ul class="list-unstyled mb-0 d-flex flex-column nav nav-footer nav-x-0">
+              <li>
+                Toll free:
+                <span class="fw-semibold">+1234 567 890</span>
+              </li>
+              <li>
+                Time:
+                <span class="fw-semibold">9AM to 8:PM IST</span>
+              </li>
+              <li>
+                Email:
+                <span class="fw-semibold">example@gmail.com</span>
+              </li>
+            </ul>
+          </div>
+          <div class="d-flex flex-row gap-2">
+            <a href="https://geeksui.codescandy.com/geeks/pages/add-course.html#"><img src="{% static 'appstore.svg' %}" alt="" class="img-fluid" /></a>
+            <a href="https://geeksui.codescandy.com/geeks/pages/add-course.html#"><img src="{% static 'playstore.svg' %}" alt="" class="img-fluid" /></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row align-items-center g-0 border-top border-gray-800 pt-3 flex-column gap-1 flex-lg-row gap-lg-0">
+      <!-- Desc -->
+      <div class="col-lg-6 col-12 text-center text-md-start">
+        <span>
+          ©
+          <span id="copyright">
+            <script>
+               document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
+            </script>2024</span>
+          GeeksTheme.&nbsp;Powered Codescandy
+        </span>
+      </div>
+      <!-- Links -->
+      <div class="col-12 col-lg-6">
+        <nav class="nav nav-footer justify-content-center justify-content-md-start justify-content-lg-end">
+          <a class="nav-link active" href="https://geeksui.codescandy.com/geeks/pages/add-course.html#!">Terms of use</a>
+          <a class="nav-link" href="https://geeksui.codescandy.com/geeks/pages/add-course.html#!">Cookies Settings</a>
+          <a class="nav-link" href="https://geeksui.codescandy.com/geeks/pages/add-course.html#!">Privacy policy</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Scroll top -->
+<div class="btn-scroll-top">
+  <svg class="progress-square svg-content" width="100%" height="100%" viewBox="0 0 40 40">
+    <path d="M8 1H32C35.866 1 39 4.13401 39 8V32C39 35.866 35.866 39 32 39H8C4.13401 39 1 35.866 1 32V8C1 4.13401 4.13401 1 8 1Z"></path>
+  </svg>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="addSectionModal" tabindex="-1" role="dialog" aria-labelledby="addSectionModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="addSectionModalLabel">Add New Section</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <input class="form-control mb-3" type="text" placeholder="Add new section " />
+        <button class="btn btn-primary" type="Button">Add New Section</button>
+        <button class="btn btn-outline-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="addLectureModal" tabindex="-1" role="dialog" aria-labelledby="addLectureModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="addLectureModalLabel">Add New Lecture</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <label for="CourseAddLecture" class="form-label">Add lecture</label>
+        <input class="form-control mb-3" type="text" placeholder="Add new lecture " id="CourseAddLecture" name="CourseAddLecture" />
+        <button class="btn btn-primary" type="Button">Add New Lecture</button>
+        <button class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="addSectionModal" tabindex="-1" role="dialog" aria-labelledby="addSectionModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="addSectionModalLabel">Add New Section</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <input class="form-control mb-3" type="text" placeholder="Add new section " />
+        <button class="btn btn-primary" type="Button">Add New Section</button>
+        <button class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

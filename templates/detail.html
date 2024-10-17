@@ -1,0 +1,263 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<main>
+  <section class="p-lg-5 py-7">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-12 mb-5">
+          <div class="rounded-3 position-relative w-100 d-block overflow-hidden p-0" style="height: 600px">
+            <video class="position-absolute top-0 end-0 start-0 bottom-0 h-100 w-100"
+                   controls
+                   width="560"
+                   height="315">
+                <source src="{{ course.trailer.url }}" type="video/mp4">  <!-- Adjust the type based on your video format -->
+                Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+      </div>
+      <!-- Content -->
+      <div class="row">
+        <div class="col-xl-8 col-lg-12 col-md-12 col-12 mb-4 mb-xl-0">
+          <!-- Card -->
+          <div class="card mb-5">
+            <!-- Card body -->
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center">
+                <h1 class="fw-semibold mb-2">{{ course.name }}</h1>
+                {% if request.user == course.teacher.user %}
+                <a href="{% url 'update' course.id %}" data-bs-toggle="tooltip" data-placement="top" title="Edit Course">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit">
+                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L10 17.5l-4 1 1-4L18.5 2.5z"></path>
+                    </svg>
+                </a>
+                <form action="{% url 'delete' course.id %}" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this course?');">
+                    {% csrf_token %}
+                    <button type="submit" data-bs-toggle="tooltip" data-placement="top" title="Delete Course" style="background:none;border:none;padding:0;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash">
+                            <path d="M3 6h18"></path>
+                            <path d="M19 6l-2 14H7L5 6"></path>
+                            <path d="M10 11v6"></path>
+                            <path d="M14 11v6"></path>
+                            <path d="M5 6l1-4h12l1 4"></path>
+                        </svg>
+                    </button>
+                </form>
+                {% else %}
+                {% endif %}
+              </div>
+              <div class="d-flex justify-content-between">
+                <div class="d-flex align-items-center">
+                  <img src="{{ course.teacher.profile_picture.url }}" class="rounded-circle avatar-md" alt="avatar" />
+                  <div class="ms-2 lh-1">
+                    <h4 class="mb-1">{{ course.teacher.first_name }} {{ course.teacher.last_name }}</h4>
+                    <p class="fs-6 mb-0">@{{ course.teacher.email }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Nav tabs -->
+            <ul class="nav nav-lt-tab" id="tab" role="tablist">
+            </ul>
+          </div>
+          <!-- Card -->
+          <div class="card rounded-3">
+            <!-- Card body -->
+            <div class="card-body">
+              <div class="tab-content" id="tabContent">
+                <!-- Tab pane -->
+                <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+                  <div class="mb-4">
+                    <h3 class="mb-2">Course Descriptions</h3>
+                    <p>{{ course.description }}</p>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4 col-lg-12 col-md-12 col-12">
+          <div class="card" id="courseAccordion">
+            <div>
+              <!-- List group -->
+              <ul class="list-group list-group-flush">
+                {% for lesson in course.lessons.all %}
+                <li class="list-group-item p-0">
+                  <!-- Toggle -->
+                  <a class="h4 mb-0 d-flex align-items-center py-3 px-4" data-bs-toggle="collapse" href="https://geeksui.codescandy.com/geeks/pages/course-single-v2.html#courseThree" role="button" aria-expanded="false" aria-controls="courseThree">
+                    <div class="me-auto">
+                      <!-- Title -->
+                      {{ lesson.title }}<p class="mb-0 fs-6 mt-1 fw-normal">{{ lesson.videos.count }} videos ({{ lesson.duration }} minutes)</p>
+                    </div>
+                    <!-- Chevron -->
+                    <span class="chevron-arrow ms-4"><i class="fa fa-chevron-down fs-4"></i></span>
+                  </a>
+                  <!-- Row -->
+                  <!-- Collapse -->
+                  <div class="collapse" id="courseThree" data-bs-parent="#courseAccordion">
+                    <!-- List group item -->
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item disabled" aria-disabled="true">
+                        <div>
+                          <div class="progress" style="height: 6px">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: {{ lesson.progress }}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                          </div>
+                          <small>{{ lesson.progress }}% Completed</small>
+                        </div>
+                      </li>
+                      <!-- List group item -->
+                      {% for video in lesson.videos.all %}
+                      <li class="list-group-item" aria-disabled="true">
+                        <a href="{% url 'lesson_detail' course.id lesson.id video.slug %}" class="d-flex justify-content-between align-items-center text-inherit">
+                          <div class="text-truncate">
+                            <span class="icon-shape bg-light text-secondary icon-sm rounded-circle me-2"><i class="fa fa-lock fs-4"></i></span>
+                            <span>{{ video.title }}</span>
+                          </div>
+                          <div class="text-truncate">
+                            <span>{{ video.formatted_duration }}</span>
+                          </div>
+                        </a>
+                      </li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                </li>
+                {% endfor %}
+              </ul>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer bg-dark-stable py-8">
+  <div class="container">
+    <div class="row gy-6 gy-xl-0 pb-8">
+      <div class="col-xl-3 col-lg-12 col-md-6 col-12">
+        <div class="d-flex flex-column gap-4">
+          <div>
+            <img src="{% static 'geeks-logo.svg' %}" alt="geeks logo" />
+          </div>
+          <p class="mb-0">Nascetur nibh feugiat vulputate urna mauris tincidunt porttitor ultricies. Et dis augue praesent congue.</p>
+
+        </div>
+      </div>
+      <div class="col-xl-2 col-md-3 col-6">
+        <div class="d-flex flex-column gap-3">
+          <span class="text-white-stable">Company</span>
+          <ul class="list-unstyled mb-0 d-flex flex-column nav nav-footer nav-x-0">
+            <li>
+              <a href="https://geeksui.codescandy.com/geeks/pages/course-single-v2.html#!" class="nav-link">About us</a>
+            </li>
+            <li>
+              <a href="https://geeksui.codescandy.com/geeks/pages/course-single-v2.html#!" class="nav-link">Contact us</a>
+            </li>
+            <li>
+              <a href="https://geeksui.codescandy.com/geeks/pages/course-single-v2.html#!" class="nav-link">News and Blogs</a>
+            </li>
+            <li>
+              <a href="https://geeksui.codescandy.com/geeks/pages/course-single-v2.html#!" class="nav-link">Career</a>
+            </li>
+            <li>
+              <a href="https://geeksui.codescandy.com/geeks/pages/course-single-v2.html#!" class="nav-link">Investors</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-xl-2 col-md-3 col-6">
+        <div class="d-flex flex-column gap-3">
+          <span class="text-white-stable">Community</span>
+          <ul class="list-unstyled mb-0 d-flex flex-column nav nav-footer nav-x-0">
+            <li>
+              <a href="https://geeksui.codescandy.com/geeks/pages/course-single-v2.html#!" class="nav-link">Help and Support</a>
+            </li>
+            <li>
+              <a href="https://geeksui.codescandy.com/geeks/pages/course-single-v2.html#!" class="nav-link">Affiliate</a>
+            </li>
+            <li>
+              <a href="https://geeksui.codescandy.com/geeks/pages/course-single-v2.html#!" class="nav-link">Blog</a>
+            </li>
+            <li>
+              <a href="https://geeksui.codescandy.com/geeks/pages/course-single-v2.html#!" class="nav-link">Geeks Business</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-xl-2 col-md-3 col-12">
+        <div class="d-flex flex-column gap-3">
+          <span class="text-white-stable">Teaching</span>
+          <ul class="list-unstyled mb-0 d-flex flex-column nav nav-footer nav-x-0">
+            <li>
+              <a href="https://geeksui.codescandy.com/geeks/pages/course-single-v2.html#!" class="nav-link">Become a teacher</a>
+            </li>
+            <li>
+              <a href="https://geeksui.codescandy.com/geeks/pages/course-single-v2.html#!" class="nav-link">How to guide</a>
+            </li>
+            <li>
+              <a href="https://geeksui.codescandy.com/geeks/pages/course-single-v2.html#!" class="nav-link">Documentation</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-xl-3 col-lg-3 col-md-6 col-12">
+        <div class="d-flex flex-column gap-5">
+          <div class="d-flex flex-column gap-3">
+            <span class="text-white-stable">Contact</span>
+            <ul class="list-unstyled mb-0 d-flex flex-column nav nav-footer nav-x-0">
+              <li>
+                Toll free:
+                <span class="fw-semibold">+1234 567 890</span>
+              </li>
+              <li>
+                Time:
+                <span class="fw-semibold">9AM to 8:PM IST</span>
+              </li>
+              <li>
+                Email:
+                <span class="fw-semibold">example@gmail.com</span>
+              </li>
+            </ul>
+          </div>
+          <div class="d-flex flex-row gap-2">
+            <a href="https://geeksui.codescandy.com/geeks/pages/course-single-v2.html#"><img src="./appstore.svg" alt="" class="img-fluid" /></a>
+            <a href="https://geeksui.codescandy.com/geeks/pages/course-single-v2.html#"><img src="./playstore.svg" alt="" class="img-fluid" /></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row align-items-center g-0 border-top border-gray-800 pt-3 flex-column gap-1 flex-lg-row gap-lg-0">
+      <!-- Desc -->
+      <div class="col-lg-6 col-12 text-center text-md-start">
+        <span>
+          ©
+          <span id="copyright"><script>
+                                 document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
+                               </script>2024</span>
+          GeeksTheme.&nbsp;Powered Codescandy
+        </span>
+      </div>
+      <!-- Links -->
+      <div class="col-12 col-lg-6">
+        <nav class="nav nav-footer justify-content-center justify-content-md-start justify-content-lg-end">
+          <a class="nav-link active" href="https://geeksui.codescandy.com/geeks/pages/course-single-v2.html#!">Terms of use</a>
+          <a class="nav-link" href="https://geeksui.codescandy.com/geeks/pages/course-single-v2.html#!">Cookies Settings</a>
+          <a class="nav-link" href="https://geeksui.codescandy.com/geeks/pages/course-single-v2.html#!">Privacy policy</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div class="btn-scroll-top">
+  <svg class="progress-square svg-content" width="100%" height="100%" viewBox="0 0 40 40">
+    <path d="M8 1H32C35.866 1 39 4.13401 39 8V32C39 35.866 35.866 39 32 39H8C4.13401 39 1 35.866 1 32V8C1 4.13401 4.13401 1 8 1Z" style="transition: stroke-dashoffset 10ms linear; stroke-dasharray: 139.989, 139.989; stroke-dashoffset: 139.989;"></path>
+  </svg>
+</div>
+{% endblock %}
