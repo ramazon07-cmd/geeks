@@ -1,52 +1,10 @@
-# Python bytecode files
 __pycache__/
-*.py[cod]
-*$py.class
-
-# Django environment
-*.env
-
-# Secret key file
-*.secret
-
-# Django stuff:
-*.log
+*.pyc
+.env
 db.sqlite3
-/db.sqlite3-journal
-media/
-staticfiles/
-local_settings.py
-
-# Ignore migrations
-*/migrations/__pycache__/
-*/migrations/*.pyc
-*/migrations/*.pyo
-*/migrations/*.log
-
-# Ignore virtual environment directories
-venv/
-env/
-ENV/
-.venv/
-.env/
-
-# Ignore system files
-.DS_Store
-Thumbs.db
-
-# Ignore IDE-specific files
-.idea/
 .vscode/
 *.swp
 
-# Ignore JetBrains project files
-*.iml
-*.ipr
-*.iws
-.idea/
-
-# Ignore compiled code
-*.so
-*.egg-info/
-
+env/*
+venv/*
 .vercel
